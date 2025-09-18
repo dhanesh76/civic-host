@@ -1,6 +1,6 @@
 package com.visioners.civic.entity;
 
-import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,7 +13,6 @@ import lombok.Data;
 @Entity
 @Data
 public class Role {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -22,5 +21,5 @@ public class Role {
     String name;
 
     @OneToMany(mappedBy = "roles")
-    List<Users> users;
+    Set<Users> users;
 }

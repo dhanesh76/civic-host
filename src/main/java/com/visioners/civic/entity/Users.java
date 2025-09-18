@@ -1,7 +1,7 @@
 package com.visioners.civic.entity;
 
 import java.time.Instant;
-import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -37,7 +37,7 @@ public class Users {
         joinColumns = @JoinColumn(name="user_id"),
         inverseJoinColumns = @JoinColumn(name="role_id")
     )
-    List<Role> roles;
+    Set<Role> roles;
     
     boolean isVerified;
 

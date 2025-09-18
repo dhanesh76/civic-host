@@ -1,5 +1,10 @@
 package com.visioners.civic.dto.auth;
 
-public class LoginResponse {
-    
-}
+import java.time.Instant;
+
+import lombok.Builder;
+
+@Builder
+public record LoginResponse(String mobileNuber, String accessToken, String refreshToken, Instant timestamp) {
+
+} 

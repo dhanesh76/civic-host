@@ -1,5 +1,6 @@
 package com.visioners.civic.dto.auth;
 
-public class RegisterResponse {
-    
+import java.time.Instant;
+
+public record RegisterResponse(String mobileNumber, Instant createdAt) {
 }
