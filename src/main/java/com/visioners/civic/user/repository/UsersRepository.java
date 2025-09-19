@@ -2,6 +2,7 @@ package com.visioners.civic.user.repository;
 
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +10,7 @@ import com.visioners.civic.user.entity.Users;
 
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Long>{
+
+    @EntityGraph(attributePaths = "roles")
     Optional<Users> findByMobileNumber(String mobileNumber);
 }

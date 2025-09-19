@@ -20,23 +20,19 @@ public class UserPrincipal implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new ArrayList<>(
-                    user.getRoles()
-                        .stream()
-                        .map(role -> new SimpleGrantedAuthority(role.getName()))
-                        .collect(Collectors.toList())
-                );
+            user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList())
+        );
     }
 
     @Override
     public String getPassword() {
         return user.getPassword();
     }
-    //vuemZZUp4ZvLHsFM
-    
+
     @Override
     public String getUsername() {
         return user.getMobileNumber();
     }
-
-    
 }
