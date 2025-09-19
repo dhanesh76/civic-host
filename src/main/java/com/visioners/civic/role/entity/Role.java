@@ -1,13 +1,16 @@
-package com.visioners.civic.entity;
+package com.visioners.civic.role.entity;
 
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.visioners.civic.user.entity.Users;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 
 @Entity
@@ -20,6 +23,7 @@ public class Role {
     @Column(nullable=false, unique = true)
     String name;
 
-    @OneToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     Set<Users> users;
 }

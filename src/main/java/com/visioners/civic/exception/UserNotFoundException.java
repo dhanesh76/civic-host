@@ -1,4 +1,4 @@
-package com.visioners.civic.service.userdetails;
+package com.visioners.civic.exception;
 
 import lombok.NoArgsConstructor;
 

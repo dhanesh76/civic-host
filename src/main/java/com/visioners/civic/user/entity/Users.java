@@ -1,9 +1,11 @@
-package com.visioners.civic.entity;
+package com.visioners.civic.user.entity;
 
 import java.time.Instant;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.visioners.civic.role.entity.Role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Data
@@ -31,14 +34,16 @@ public class Users {
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany(fetch=FetchType.LAZY) 
+    @ManyToMany(fetch=FetchType.EAGER) 
     @JoinTable(
         name = "user_roles",
         joinColumns = @JoinColumn(name="user_id"),
         inverseJoinColumns = @JoinColumn(name="role_id")
     )
+    @JsonManagedReference
     Set<Role> roles;
     
+    @Column(nullable = false)
     boolean isVerified;
 
     @CreationTimestamp

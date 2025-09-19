@@ -1,4 +1,4 @@
-package com.visioners.civic.dto.auth;
+package com.visioners.civic.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

@@ -1,23 +1,26 @@
-package com.visioners.civic.Jwt;
+package com.visioners.civic.auth.service;
 
 
 import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Date;
-import java.util.Properties;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import io.jsonwebtoken.Claims;
+import com.visioners.civic.auth.dto.AuthTokens;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
 @Service
-public class JwtService {
+public class JwtTokenService {
 
     @Value("${jwt.secret}")
     private String secret;
@@ -25,7 +28,7 @@ public class JwtService {
     @Value("${jwt.token.access.expiry}")
     private Long accessTokenExpiry; 
 
-    public Properties generateToken(UserDetails userDetails){
+    public AuthTokens generateToken(UserDetails userDetails){
         String jti = UUID.randomUUID().toString();
         
         String accessToken= Jwts
@@ -35,44 +38,28 @@ public class JwtService {
                             .setIssuedAt(new Date())
                             .setExpiration(new Date(System.currentTimeMillis()+accessTokenExpiry))
                             .signWith(getKey())
-                            .claim("role", userDetails.getAuthorities())
+                            .claim("roles", 
+                                userDetails
+                                    .getAuthorities()
+                                    .stream()
+                                    .map(GrantedAuthority::getAuthority)
+                                    .collect(Collectors.toList())
+                            )
                             .compact();
 
         String refreshToken = getRefreshToken();
 
-        Properties tokens = new Properties();
-        tokens.setProperty("accessToken", accessToken);
-        tokens.setProperty("refreshToken", refreshToken);
+        AuthTokens tokens = new AuthTokens(accessToken, refreshToken);
         return tokens;
-
     }
 
     private String getRefreshToken() {
-        return new SecureRandom().toString();
+        byte[] bytes = new byte[64];
+        new SecureRandom().nextBytes(bytes);
+        return  Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
     }
 
-    private SecretKey getKey(){
+    public SecretKey getKey(){
         return Keys.hmacShaKeyFor(secret.getBytes());
-    }
-    
-    public String extractMobileNumber(String token) {
-        return extractAllClaims(token).getSubject();
-    }
-
-    private Date getExpiration(String token){
-        return extractAllClaims(token).getExpiration();
-    }
-    
-    public boolean validateToken(String token) {
-        return getExpiration(token).before(new Date());
-    }
-
-    Claims extractAllClaims(String token){
-        return Jwts
-            .parserBuilder()
-            .setSigningKey(getKey())
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
     }
 }
