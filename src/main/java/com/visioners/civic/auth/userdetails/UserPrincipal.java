@@ -1,6 +1,5 @@
 package com.visioners.civic.auth.userdetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -10,20 +9,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.visioners.civic.user.entity.Users;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
 public class UserPrincipal implements UserDetails{
 
     private final Users user;
 
+    public UserPrincipal(Users user){
+        this.user = user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(
-            user.getRoles().stream()
+        return user.getRoles()
+                .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList())
-        );
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -34,5 +33,9 @@ public class UserPrincipal implements UserDetails{
     @Override
     public String getUsername() {
         return user.getMobileNumber();
+    }
+
+    public Users getUser(){
+        return user;
     }
 }
