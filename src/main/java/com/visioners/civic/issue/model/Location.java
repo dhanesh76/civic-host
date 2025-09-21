@@ -1,0 +1,4 @@
+package com.visioners.civic.issue.model;
+public class Location {
+
+}
