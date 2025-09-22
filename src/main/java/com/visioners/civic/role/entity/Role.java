@@ -3,6 +3,7 @@ package com.visioners.civic.role.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.visioners.civic.user.entity.Users;
 
 import jakarta.persistence.Column;
@@ -35,6 +36,7 @@ public class Role {
     String name;
 
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     Set<Users> users = new HashSet<>();
 }
 

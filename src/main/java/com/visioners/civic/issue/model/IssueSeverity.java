@@ -1,6 +1,6 @@
 package com.visioners.civic.issue.model;
 
-public class IssueSeverity {
+public enum IssueSeverity {
     LOW,
     MEDIUM,
     HIGH

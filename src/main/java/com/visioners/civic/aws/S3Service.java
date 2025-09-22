@@ -1,4 +1,4 @@
-package com.ticketmanagement.service;
+package com.visioners.civic.aws;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

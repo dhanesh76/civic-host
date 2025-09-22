@@ -2,6 +2,9 @@ package com.visioners.civic.issue.entity;
 
 import java.time.Instant;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import com.visioners.civic.issue.model.IssueCategory;
 import com.visioners.civic.issue.model.IssueSeverity;
 import com.visioners.civic.issue.model.IssueStatus;
@@ -19,8 +22,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Setter
+@Getter
 public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,9 +96,9 @@ public class Complaint {
     @JoinColumn(name = "assigned_by_staff_id")
     Users assignedBy;
 
-    @CreationalTimeStamp
+    @CreationTimestamp
     Instant createdAt;
 
-    @UpdatedTimeStamp
+    @UpdateTimestamp
     Instant updatedAt;
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.visioners.civic.role.entity.Role;
 
 import jakarta.persistence.Column;
