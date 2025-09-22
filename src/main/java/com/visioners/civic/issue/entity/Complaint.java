@@ -32,6 +32,25 @@ public class Complaint {
     @Enumerated(EnumType.STRING)
     IssueCategory category;
 
+    /*{
+        "description":"jnenkjek",
+        "category":"road",
+        "subCategory":"pothole",
+        "location" : {
+            "latitude": 12.9716,
+            "longitude": 77.5946,
+            "accuracy": 5.0,
+            "street": "MG Road",
+            "locality": "Bangalore",
+            "subLocality": "Ashok Nagar",
+            "subAdminArea": "Bangalore Urban",
+            "adminArea": "Karnataka",
+            "postalCode": "560001",
+            "country": "India",
+            isoCountryCode": "IN"
+        }
+    }
+        */
     @Enumerated(EnumType.STRING)
     IssueSubCategory subCategory;
 
@@ -70,6 +89,9 @@ public class Complaint {
     @JoinColumn(name = "assigned_by_staff_id")
     Users assignedBy;
 
+    @CreationalTimeStamp
     Instant createdAt;
+
+    @UpdatedTimeStamp
     Instant updatedAt;
 }

@@ -1,5 +1,5 @@
 package com.visioners.civic.issue.model;
 
 public class IssueSubCategory {
-
+    POTHOLE
 }
