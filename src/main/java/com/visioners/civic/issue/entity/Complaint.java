@@ -5,11 +5,13 @@ import java.time.Instant;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.visioners.civic.issue.model.IssueCategory;
 import com.visioners.civic.issue.model.IssueSeverity;
 import com.visioners.civic.issue.model.IssueStatus;
 import com.visioners.civic.issue.model.IssueSubCategory;
 import com.visioners.civic.issue.model.Location;
+import com.visioners.civic.staff.entity.Staff;
 import com.visioners.civic.user.entity.Users;
 
 import jakarta.persistence.Column;
@@ -73,6 +75,7 @@ public class Complaint {
     IssueStatus status;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "raised_by_id")
     Users raisedBy;
 
@@ -101,4 +104,13 @@ public class Complaint {
 
     @UpdateTimestamp
     Instant updatedAt;
+
+    String resolutionNote;
+
+    String resolutionImageUrl;
+
+    @ManyToOne
+    @JoinColumn(name = "approved_by_id")
+    @JsonIgnore
+    Users approvedBy;
 }

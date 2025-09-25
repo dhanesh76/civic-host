@@ -11,10 +11,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 import com.visioners.civic.staff.entity.Staff;
 
 @Entity
+@Data
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

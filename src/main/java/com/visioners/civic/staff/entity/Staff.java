@@ -4,7 +4,8 @@
 
     import org.hibernate.annotations.CreationTimestamp;
 
-    import com.visioners.civic.issue.entity.Block;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.visioners.civic.issue.entity.Block;
     import com.visioners.civic.issue.entity.Department;
     import com.visioners.civic.user.entity.Users;
 
@@ -15,8 +16,10 @@
     import jakarta.persistence.JoinColumn;
     import jakarta.persistence.ManyToOne;
     import jakarta.persistence.OneToOne;
+import lombok.Data;
 
     @Entity
+    @Data
     public class Staff {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +27,17 @@
 
         @OneToOne
         @JoinColumn(name = "user_id", nullable = false, unique = true)
+        
         private Users user;
 
         @ManyToOne
         @JoinColumn(name = "block_id", nullable = false)
+        @JsonIgnore
         private Block block;
 
         @ManyToOne
         @JoinColumn(name = "department_id", nullable = false)
+        @JsonIgnore
         private Department department;
 
         @CreationTimestamp

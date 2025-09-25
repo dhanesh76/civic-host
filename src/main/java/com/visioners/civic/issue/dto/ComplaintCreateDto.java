@@ -1,16 +1,19 @@
-package com.visioners.civic.issue.dto;
+    package com.visioners.civic.issue.dto;
 
-import com.visioners.civic.issue.model.IssueCategory;
-import com.visioners.civic.issue.model.IssueSubCategory;
-import com.visioners.civic.issue.model.Location;
-import jakarta.validation.constraints.NotBlank;
+    import com.visioners.civic.issue.model.IssueCategory;
+    import com.visioners.civic.issue.model.IssueSubCategory;
+    import com.visioners.civic.issue.model.Location;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+    import lombok.AllArgsConstructor;
 
-public record ComplaintCreateDto(
-    @NotBlank
-     String description,
-     IssueCategory category,
-     IssueSubCategory subCategory,
-     Location location, // contains latitude, longitude, subAdminArea, etc.
-     Long raisedById
-){}
-
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public class ComplaintCreateDto {
+        private String description;
+        private IssueCategory category;
+        private IssueSubCategory subCategory; // fixed typo
+        private Location location; // latitude, longitude, etc.
+    private Long departmentId;
+    }
